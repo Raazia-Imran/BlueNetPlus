@@ -1,40 +1,110 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { Users, Briefcase, Lock, CheckCircle } from "lucide-react";
 
 export default function Membership() {
-  const [isLoggedIn] = useState(false); // This will be connected to auth later
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [profile, setProfile] = useState({
     name: "",
     organization: "",
     role: "",
     interests: "",
-    type: "Individual",
+    member_type: "Individual",
   });
-  const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
   const { toast } = useToast();
 
-  const handleLogin = () => {
-    toast({
-      title: "Login Required",
-      description: "Please connect to the backend to enable authentication.",
+  useEffect(() => {
+    // 1. Check if user is logged in
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setIsLoggedIn(!!session);
+      if (session?.user) {
+        fetchProfile(session.user.id);
+      }
     });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsLoggedIn(!!session);
+      if (session?.user) {
+        fetchProfile(session.user.id);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const fetchProfile = async (userId: string) => {
+    try {
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("user_id", userId)
+        .single();
+
+      if (error) throw error;
+      if (data) {
+        setProfile({
+          name: data.name || "",
+          organization: data.organization || "",
+          role: data.role || "",
+          interests: data.interests || "",
+          member_type: data.member_type || "Individual",
+        });
+      }
+    } catch (error) {
+      console.error("Error fetching profile:", error);
+    }
+  };
+
+  const handleLogin = () => {
+    // 2. Redirect to the login page
+    navigate("/login");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    
-    toast({
-      title: "Profile Updated",
-      description: "Your membership profile has been saved successfully.",
-    });
-    setLoading(false);
+
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (!user) throw new Error("No user found");
+
+      const { error } = await supabase
+        .from("profiles")
+        .update({
+          name: profile.name,
+          organization: profile.organization,
+          role: profile.role,
+          interests: profile.interests,
+          member_type: profile.member_type,
+        })
+        .eq("user_id", user.id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Profile Updated",
+        description: "Your membership profile has been saved successfully.",
+      });
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: error.message,
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!isLoggedIn) {
@@ -49,7 +119,8 @@ export default function Membership() {
               Membership Access
             </h2>
             <p className="text-muted-foreground mb-8">
-              Please log in to access your digital membership profile, network with peers, and access exclusive resources.
+              Please log in to access your digital membership profile, network
+              with peers, and access exclusive resources.
             </p>
             <Button variant="hero" className="w-full" onClick={handleLogin}>
               Login / Register
@@ -98,12 +169,14 @@ export default function Membership() {
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Member Type</span>
                     <span className="text-foreground font-medium">
-                      {profile.type}
+                      {profile.member_type}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Member Since</span>
-                    <span className="text-foreground font-medium">Dec 2025</span>
+                    <span className="text-foreground font-medium">
+                      Dec 2025
+                    </span>
                   </div>
                 </div>
               </div>
@@ -167,13 +240,15 @@ export default function Membership() {
                       Membership Category
                     </label>
                     <select
-                      value={profile.type}
+                      value={profile.member_type}
                       onChange={(e) =>
-                        setProfile({ ...profile, type: e.target.value })
+                        setProfile({ ...profile, member_type: e.target.value })
                       }
                       className="w-full px-4 py-2 bg-background border border-input rounded-lg focus:ring-2 focus:ring-primary outline-none transition-all"
                     >
-                      <option value="Individual">Individual (Student/Pro)</option>
+                      <option value="Individual">
+                        Individual (Student/Pro)
+                      </option>
                       <option value="Institutional">Institutional</option>
                       <option value="Corporate">Corporate</option>
                       <option value="Community">Community/NGO</option>
