@@ -6,7 +6,8 @@
 
 @layer base {
   :root {
-    --background: 210 20% 98%;
+    /* FIXED: This is the "Coastal Sand" color (Warm Off-White) */
+    --background: 35 30% 98%; 
     --foreground: 222 47% 11%;
 
     --card: 0 0% 100%;
@@ -15,7 +16,8 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
 
-    --primary: 199 89% 48%;
+    /* OCEAN PALETTE */
+    --primary: 199 89% 48%; /* Bright Ocean Blue */
     --primary-foreground: 0 0% 100%;
 
     --secondary: 210 40% 96%;
@@ -24,10 +26,10 @@
     --muted: 210 40% 96%;
     --muted-foreground: 215 16% 47%;
 
-    --accent: 172 66% 50%;
+    --accent: 172 66% 50%; /* Teal */
     --accent-foreground: 222 47% 11%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 84% 60%; /* Coral Red */
     --destructive-foreground: 0 0% 100%;
 
     --border: 214 32% 91%;
@@ -36,14 +38,9 @@
 
     --radius: 0.75rem;
 
-    /* Custom design tokens */
+    /* Custom Tokens */
     --navy: 222 47% 11%;
-    --navy-light: 217 33% 17%;
-    --ocean: 199 89% 48%;
-    --ocean-light: 199 89% 65%;
-    --teal: 172 66% 50%;
-    --teal-light: 172 66% 70%;
-    --slate-dark: 215 28% 17%;
+    --coral: 16 100% 66%;
     
     /* Gradients */
     --gradient-ocean: linear-gradient(135deg, hsl(199 89% 48%) 0%, hsl(172 66% 50%) 100%);
@@ -117,6 +114,9 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
+    /* This adds the subtle sand texture */
+    background-image: linear-gradient(to bottom right, hsl(35, 30%, 98%), #ffffff);
+    background-attachment: fixed;
   }
 }
 

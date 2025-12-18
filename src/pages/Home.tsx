@@ -1,142 +1,479 @@
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { OBJECTIVES } from "@/data/mockData";
+import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   ArrowRight,
-  ChevronRight,
-  Database,
-  Briefcase,
-  Lightbulb,
-  GraduationCap,
-  Users,
-  Ship,
   Anchor,
-  Waves,
+  Users,
+  Globe,
+  Database,
+  GraduationCap,
+  Lightbulb,
+  Mic,
+  Ship,
+  Briefcase,
+  Leaf,
 } from "lucide-react";
-
-const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  "Unified Ecosystem": ChevronRight,
-  "Data-Driven Decisions": Database,
-  "Digital Marketplace": Briefcase,
-  "Innovation Nexus": Lightbulb,
-  "Capacity Building": GraduationCap,
-  "Community Growth": Users,
-};
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { SectionHeader } from "@/components/ui/SectionHeader";
+import { cn } from "@/lib/utils";
 
 export default function Home() {
+  const navigate = useNavigate();
+  const parallaxRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (parallaxRef.current) {
+        const scrolled = window.scrollY;
+        parallaxRef.current.style.transform = `translateY(${scrolled * 0.5}px)`;
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <div className="animate-fade-in">
-      {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center gradient-hero overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-20 left-10 animate-float">
-            <Anchor className="w-24 h-24 text-primary" />
-          </div>
-          <div className="absolute bottom-20 right-20 animate-float" style={{ animationDelay: "1s" }}>
-            <Ship className="w-32 h-32 text-primary" />
-          </div>
-          <div className="absolute top-1/2 right-1/4 animate-float" style={{ animationDelay: "0.5s" }}>
-            <Waves className="w-20 h-20 text-accent" />
+    <div className="min-h-screen overflow-x-hidden font-sans selection:bg-teal-200 selection:text-teal-900">
+      {/* 1. HERO SECTION */}
+      <div className="relative h-[90vh] flex items-center justify-center overflow-hidden bg-[#001E2B]">
+        <div ref={parallaxRef} className="absolute inset-0 opacity-40">
+          <div className="absolute top-0 left-0 w-full h-full bg-[url('https://images.unsplash.com/photo-1468581264429-2548ef9eb732?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center" />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#001E2B] via-[#001E2B]/80 to-transparent" />
+
+        <div className="container relative z-10 px-4 text-center">
+          <Badge
+            variant="outline"
+            className="mb-6 border-teal-400/50 text-teal-300 px-4 py-1 text-sm tracking-wider uppercase backdrop-blur-md"
+          >
+            Pakistan's First Digital Maritime Hub
+          </Badge>
+
+          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight tracking-tight">
+            Digital Catalyst for <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500">
+              Pakistan's Blue Economy
+            </span>
+          </h1>
+
+          <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed">
+            Connecting industry, government, and researchers to transform the
+            maritime sector.
+          </p>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Button
+              size="lg"
+              className="bg-[#FF7F50] hover:bg-[#E06040] text-white border-0 px-8 py-6 text-lg rounded-full shadow-[0_0_20px_rgba(255,127,80,0.4)] transition-all hover:scale-105"
+              onClick={() => navigate("/membership")}
+            >
+              Join the Ecosystem
+            </Button>
+            {/* FIXED BUTTON: Added bg-transparent and border-white */}
+            <Button
+              size="lg"
+              className="bg-transparent border-2 border-white/30 text-white hover:bg-white/10 px-8 py-6 text-lg rounded-full backdrop-blur-sm transition-all"
+              onClick={() =>
+                document
+                  .getElementById("offerings")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
+            >
+              Explore Services
+            </Button>
           </div>
         </div>
+      </div>
 
-        <div className="container mx-auto px-4 py-20 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <span className="inline-block py-1.5 px-4 rounded-full bg-primary/20 border border-primary/30 text-primary text-sm font-semibold tracking-wide mb-6 animate-fade-in">
-              Powered by BlueNet+
-            </span>
-            
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 text-primary-foreground animate-slide-up">
-              Pakistan's Digital{" "}
-              <span className="text-gradient-ocean">Blue Economy Catalyst</span>
-            </h1>
-            
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed animate-slide-up" style={{ animationDelay: "0.1s" }}>
-              Connect, empower, and transform the maritime sector through technology.
-              The first unified ecosystem for industry, government, and innovators.
+      {/* 2. VISION & MISSION */}
+      <div className="relative py-24 bg-[#001E2B]">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-3 gap-8 text-white">
+            <div className="md:col-span-1">
+              <h2 className="text-3xl font-bold mb-4 flex items-center gap-3">
+                <Globe className="text-teal-400 w-8 h-8" />
+                Our Vision
+              </h2>
+              <p className="text-slate-300 leading-relaxed">
+                To build a smart, inclusive, and technology-enabled maritime
+                ecosystem.
+              </p>
+            </div>
+            <div className="md:col-span-2 grid sm:grid-cols-2 gap-4">
+              {[
+                { icon: Database, text: "Foster data-driven decision making" },
+                {
+                  icon: Lightbulb,
+                  text: "Connect stakeholders to innovative tech",
+                },
+                { icon: Users, text: "Promote youth & women empowerment" },
+                { icon: Leaf, text: "Ensure climate-smart business growth" },
+              ].map((item, i) => (
+                <div
+                  key={i}
+                  className="bg-white/5 border border-white/10 p-4 rounded-xl flex items-center gap-4 hover:bg-white/10 transition-colors"
+                >
+                  <div className="w-10 h-10 rounded-full bg-teal-500/20 flex items-center justify-center shrink-0">
+                    <item.icon className="w-5 h-5 text-teal-400" />
+                  </div>
+                  <span className="text-sm font-medium">{item.text}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 3. WHAT MSH OFFERS */}
+      <div id="offerings" className="py-24 bg-transparent overflow-hidden">
+        <div className="container mx-auto px-4">
+          <SectionHeader
+            title="What MSH Offers"
+            subtitle="Five pillars powering the maritime revolution."
+            icon={Anchor}
+            className="mb-12 text-center"
+          />
+
+          <div className="flex justify-center">
+            <Carousel
+              className="w-full max-w-6xl"
+              opts={{ align: "start", loop: true }}
+            >
+              <CarouselContent className="-ml-4">
+                {[
+                  {
+                    title: "Membership Platform",
+                    desc: "Stakeholder profiles, networking, and smart collaboration tools.",
+                    icon: Users,
+                    color: "bg-blue-500",
+                    link: "/membership",
+                  },
+                  {
+                    title: "Services Marketplace",
+                    desc: "Connect with experts, consultants, and marine tech providers.",
+                    icon: Briefcase,
+                    color: "bg-teal-500",
+                    link: "/marketplace",
+                  },
+                  {
+                    title: "Ocean Data Portal",
+                    desc: "Real-time access to scientific data, tides, and research findings.",
+                    icon: Database,
+                    color: "bg-cyan-500",
+                    link: "/data",
+                  },
+                  {
+                    title: "Blue Skills Academy",
+                    desc: "Training, certifications, and internships for the future workforce.",
+                    icon: GraduationCap,
+                    color: "bg-indigo-500",
+                    link: "/academy",
+                  },
+                  {
+                    title: "Startup Incubator",
+                    desc: "Mentorship and funding for OceanTech and aquaculture startups.",
+                    icon: Lightbulb,
+                    color: "bg-[#FF7F50]",
+                    link: "/incubator",
+                  },
+                ].map((item, index) => (
+                  <CarouselItem
+                    key={index}
+                    className="pl-4 md:basis-1/2 lg:basis-1/3"
+                  >
+                    <div className="h-full">
+                      <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden relative bg-white">
+                        <div
+                          className={`absolute top-0 left-0 w-full h-2 ${item.color}`}
+                        />
+                        <CardContent className="p-8 flex flex-col h-full">
+                          <div
+                            className={`w-14 h-14 ${item.color} bg-opacity-10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
+                          >
+                            <item.icon
+                              className={`w-7 h-7 ${item.color.replace(
+                                "bg-",
+                                "text-"
+                              )}`}
+                            />
+                          </div>
+                          <h3 className="text-xl font-bold text-slate-900 mb-3">
+                            {item.title}
+                          </h3>
+                          <p className="text-slate-600 mb-8 flex-1 leading-relaxed">
+                            {item.desc}
+                          </p>
+                          <Button
+                            variant="ghost"
+                            className="w-full justify-between group-hover:bg-slate-50 hover:text-blue-600"
+                            onClick={() => navigate(item.link)}
+                          >
+                            Explore
+                            <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <div className="hidden md:block">
+                <CarouselPrevious className="-left-12 border-slate-300 text-slate-500 hover:bg-slate-100" />
+                <CarouselNext className="-right-12 border-slate-300 text-slate-500 hover:bg-slate-100" />
+              </div>
+            </Carousel>
+          </div>
+        </div>
+      </div>
+
+      {/* 4. WHO WE SERVE */}
+      <div className="py-24 bg-[#F8FAFC]">
+        <div className="container mx-auto px-4">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <span className="text-[#FF7F50] font-bold tracking-widest uppercase text-sm">
+                Ecosystem
+              </span>
+              <h2 className="text-4xl font-bold text-slate-900 mt-2 mb-6">
+                Who We Serve
+              </h2>
+              <p className="text-slate-600 text-lg mb-8">
+                MSH links fragmented maritime sectors on a single digital hub.
+              </p>
+
+              <div className="space-y-4">
+                <StakeholderRow
+                  title="Government & Policy"
+                  desc="Maritime Affairs, Ports, Fisheries, Climate Agencies."
+                  color="bg-blue-100 text-blue-700"
+                />
+                <StakeholderRow
+                  title="Industry & Private Sector"
+                  desc="Shipping, Logistics, Aquaculture, Tourism."
+                  color="bg-teal-100 text-teal-700"
+                />
+                <StakeholderRow
+                  title="Academia & Scientists"
+                  desc="Universities, Marine Labs, Research Institutes."
+                  color="bg-indigo-100 text-indigo-700"
+                />
+                <StakeholderRow
+                  title="Communities & Youth"
+                  desc="Coastal livelihoods, Women Entrepreneurs."
+                  color="bg-orange-100 text-orange-700"
+                />
+              </div>
+            </div>
+
+            <div className="relative h-[600px] bg-slate-200 rounded-3xl overflow-hidden shadow-2xl">
+              <img
+                src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=2070&auto=format&fit=crop"
+                alt="Community"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-8">
+                <div className="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-2xl text-white">
+                  <h4 className="text-xl font-bold mb-2">
+                    Connecting 5+ Key Sectors
+                  </h4>
+                  <p className="text-sm text-slate-200">
+                    From deep-sea ports to local fishing communities.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 5. OCEAN KAFE */}
+      <div className="py-24 bg-[#FF7F50] text-white overflow-hidden relative">
+        <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="flex flex-col md:flex-row items-center gap-12">
+            <div className="flex-1">
+              <div className="inline-flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full mb-6 backdrop-blur-sm">
+                <Mic className="w-4 h-4" />
+                <span className="font-bold text-sm">#OceanStorytelling</span>
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                Ocean Kafe
+              </h2>
+              <p className="text-xl text-white/90 mb-8 leading-relaxed">
+                Your Voice, Your Story. A creative space giving a platform to
+                unheard voices from Pakistan's coastline.
+              </p>
+              <div className="flex gap-4">
+                <Button className="bg-white text-[#FF7F50] hover:bg-slate-100 border-0 rounded-full px-8">
+                  Read Stories
+                </Button>
+                {/* FIXED BUTTON: Added bg-transparent and border-white */}
+                <Button className="bg-transparent border-2 border-white/40 text-white hover:bg-white/10 rounded-full px-8 transition-colors">
+                  Submit Yours
+                </Button>
+              </div>
+            </div>
+
+            <div className="flex-1 grid grid-cols-2 gap-4">
+              <StoryCard
+                img="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80"
+                category="Coastal Women"
+                title="The Guardians of Mangroves"
+              />
+              <StoryCard
+                img="https://images.unsplash.com/photo-1534960680480-ca9853707e10?auto=format&fit=crop&q=80"
+                category="Innovation"
+                title="Sailing Against the Tide"
+                className="translate-y-8"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 6. THE UNHEARD OCEAN */}
+      <div className="py-24 bg-slate-900 text-slate-100">
+        <div className="container mx-auto px-4 text-center max-w-4xl">
+          <Ship className="w-12 h-12 text-teal-400 mx-auto mb-6" />
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 font-serif">
+            The Unheard Ocean
+          </h2>
+          <p className="text-slate-400 text-lg mb-10">
+            New Frontiers in Science, Law, Economy, and Society.
+          </p>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-left">
+            <ResearchStat label="Deep Sea" value="Exploration" />
+            <ResearchStat label="Maritime Law" value="Governance" />
+            <ResearchStat label="Blue Growth" value="Economy" />
+            <ResearchStat label="Community" value="Society" />
+          </div>
+
+          <div className="mt-12 pt-12 border-t border-slate-800">
+            <Button
+              variant="link"
+              className="text-teal-400 hover:text-teal-300 text-lg"
+            >
+              Join the Upcoming Conference{" "}
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      {/* 7. CTA */}
+      <div className="py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="bg-gradient-to-r from-blue-600 to-teal-500 rounded-3xl p-12 md:p-20 text-center text-white shadow-2xl relative overflow-hidden">
+            <h2 className="text-3xl md:text-5xl font-bold mb-8 relative z-10">
+              Ready to Shape the Future?
+            </h2>
+            <p className="text-xl text-blue-50 mb-10 max-w-2xl mx-auto relative z-10">
+              Join Pakistan’s transformation toward a sustainable, inclusive,
+              innovation-led maritime future.
             </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up" style={{ animationDelay: "0.2s" }}>
-              <Button variant="hero" size="xl" asChild>
-                <Link to="/membership">
-                  Join the Hub
-                  <ArrowRight className="w-5 h-5" />
-                </Link>
+            <div className="flex flex-col sm:flex-row justify-center gap-4 relative z-10">
+              <Button
+                size="lg"
+                className="bg-white text-blue-600 hover:bg-slate-50 px-10 py-6 text-lg rounded-full font-bold shadow-lg"
+                onClick={() => navigate("/membership")}
+              >
+                Sign Up Now
               </Button>
-              <Button variant="heroOutline" size="xl" asChild>
-                <Link to="/marketplace">Explore Services</Link>
+              {/* FIXED BUTTON: Added bg-transparent and border-white */}
+              <Button
+                size="lg"
+                className="bg-transparent border-2 border-white/40 text-white hover:bg-white/10 px-10 py-6 text-lg rounded-full transition-colors"
+                onClick={() =>
+                  (window.location.href = "mailto:info@bluenetplus.org")
+                }
+              >
+                Contact Us
               </Button>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
 
-        {/* Wave Decoration */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 85C1200 90 1320 90 1380 90L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z"
-              className="fill-background"
-            />
-          </svg>
-        </div>
-      </section>
+// Helper Components
+function StakeholderRow({
+  title,
+  desc,
+  color,
+}: {
+  title: string;
+  desc: string;
+  color: string;
+}) {
+  return (
+    <div className="flex items-start gap-4 p-4 rounded-xl bg-white border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+      <div
+        className={`w-2 h-12 rounded-full shrink-0 ${color.split(" ")[0]}`}
+      />
+      <div>
+        <h3 className={`font-bold text-lg ${color.split(" ")[1]}`}>{title}</h3>
+        <p className="text-slate-600 text-sm mt-1">{desc}</p>
+      </div>
+    </div>
+  );
+}
 
-      {/* Objectives Section */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Core Objectives
-            </h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Driving sustainable economic growth and ocean stewardship for Pakistan's future
-            </p>
-            <div className="w-24 h-1 bg-primary mx-auto mt-6 rounded-full" />
-          </div>
+function StoryCard({
+  img,
+  category,
+  title,
+  className,
+}: {
+  img: string;
+  category: string;
+  title: string;
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn(
+        "relative rounded-xl overflow-hidden aspect-[3/4] group cursor-pointer shadow-lg",
+        className
+      )}
+    >
+      <img
+        src={img}
+        alt={title}
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+      <div className="absolute bottom-0 left-0 p-6 text-white">
+        <span className="text-xs font-bold uppercase tracking-wider text-[#FF7F50] bg-white px-2 py-1 rounded mb-2 inline-block">
+          {category}
+        </span>
+        <h4 className="font-bold text-lg leading-tight group-hover:underline decoration-[#FF7F50] underline-offset-4">
+          {title}
+        </h4>
+      </div>
+    </div>
+  );
+}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {OBJECTIVES.map((objective, idx) => {
-              const Icon = iconMap[objective.title] || ChevronRight;
-              return (
-                <div
-                  key={idx}
-                  className="bg-card rounded-xl border border-border p-8 hover-lift animate-fade-in"
-                  style={{ animationDelay: `${idx * 0.1}s` }}
-                >
-                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-6 text-primary">
-                    <Icon className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-xl font-bold text-foreground mb-3">
-                    {objective.title}
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {objective.description}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 gradient-ocean">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-6">
-            Ready to Transform Pakistan's Blue Economy?
-          </h2>
-          <p className="text-lg text-primary-foreground/80 max-w-2xl mx-auto mb-8">
-            Join thousands of maritime professionals, researchers, and innovators on the MSH platform.
-          </p>
-          <Button variant="secondary" size="xl" asChild>
-            <Link to="/membership">
-              Get Started Today
-              <ArrowRight className="w-5 h-5" />
-            </Link>
-          </Button>
-        </div>
-      </section>
+function ResearchStat({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="p-4 bg-slate-800 rounded-lg border border-slate-700 hover:border-teal-500/50 transition-colors">
+      <div className="text-slate-500 text-xs uppercase tracking-wider mb-1">
+        {label}
+      </div>
+      <div className="text-white font-bold text-xl">{value}</div>
     </div>
   );
 }
