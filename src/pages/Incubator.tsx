@@ -1,42 +1,63 @@
-import { SectionHeader } from "@/components/ui/SectionHeader";
+import { Button } from "@/components/ui/button";
 import {
-  Globe,
-  Landmark,
   Lightbulb,
   Rocket,
-  ShieldCheck,
-  Sprout,
   Target,
+  Sprout,
+  ShieldCheck,
   Users,
+  Globe,
+  Landmark,
 } from "lucide-react";
 
 export default function Incubator() {
   return (
-    <div className="py-24 min-h-screen animate-fade-in">
-      <div className="container mx-auto px-4">
-        {/* HERO SECTION */}
-        <SectionHeader
-          title="Incubation for Ocean Startups"
-          subtitle="Accelerating Blue Innovation for a Sustainable Maritime Future."
-          icon={Lightbulb}
-          className="mb-16 text-center"
-        />
+    <div className="min-h-screen bg-[#FDFCF8] animate-fade-in">
+      {/* 1. HERO SECTION (Ocean Data Style) */}
+      <div className="relative bg-[#0a192f] text-white py-24 lg:py-32 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0a192f] via-[#102a43] to-[#004e92] opacity-90"></div>
+        <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+          <div className="absolute top-[20%] right-[-10%] w-96 h-96 bg-teal-500/20 rounded-full mix-blend-overlay filter blur-3xl animate-blob animation-delay-2000" />
+          <div className="absolute -bottom-32 left-[20%] w-96 h-96 bg-[#FF7F50]/20 rounded-full mix-blend-overlay filter blur-3xl animate-blob animation-delay-4000" />
+        </div>
 
+        <div className="container mx-auto px-4 relative z-10 text-center max-w-4xl">
+          <div className="inline-flex items-center justify-center p-3 bg-white/10 rounded-full mb-6 backdrop-blur-sm">
+            <Lightbulb className="w-6 h-6 text-[#FF7F50]" />
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+            Incubation for Ocean Startups
+          </h1>
+          <p className="text-lg text-slate-300 mb-10 leading-relaxed max-w-2xl mx-auto">
+            Accelerating Blue Innovation for a Sustainable Maritime Future. We
+            support entrepreneurs turning pioneering ocean ideas into scalable
+            ventures.
+          </p>
+          <Button
+            size="lg"
+            className="bg-[#FF7F50] hover:bg-[#E06040] text-white rounded-full px-8 font-semibold shadow-lg shadow-orange-500/20"
+          >
+            Download Brochure
+          </Button>
+        </div>
+      </div>
+
+      {/* 2. MAIN CONTENT */}
+      <div className="container mx-auto px-4 py-20">
         <div className="grid lg:grid-cols-2 gap-16 items-start">
-          {/* LEFT COLUMN: Benefits & Focus Areas */}
+          {/* LEFT COLUMN: Benefits */}
           <div className="space-y-12">
-            {/* 1. What We Provide */}
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
-              <h3 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+            <div className="bg-white p-10 rounded-2xl shadow-sm border border-slate-100">
+              <h3 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
                 <Rocket className="w-6 h-6 text-[#FF7F50]" />
                 What We Provide
               </h3>
-              <p className="text-slate-600 mb-6 leading-relaxed">
+              <p className="text-slate-600 mb-8 leading-relaxed">
                 We support early-stage entrepreneurs, youth innovators, and
-                women-led enterprises to turn pioneering ocean ideas into
-                scalable ventures.
+                women-led enterprises with a complete ecosystem of support.
               </p>
-              <ul className="space-y-4">
+              <ul className="space-y-5">
                 <BenefitItem text="Business Development & Mentoring (Industry/Finance experts)" />
                 <BenefitItem text="Technical Labs & Field Access (Coastal sites/Facilities)" />
                 <BenefitItem text="Investor & Funding Support (Grants, VC access)" />
@@ -45,10 +66,10 @@ export default function Incubator() {
               </ul>
             </div>
 
-            {/* 2. Focus Themes */}
+            {/* Focus Themes */}
             <div>
-              <h3 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
-                <Target className="w-6 h-6 text-teal-500" />
+              <h3 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
+                <Target className="w-6 h-6 text-teal-600" />
                 Focus Themes
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -62,19 +83,15 @@ export default function Incubator() {
             </div>
           </div>
 
-          {/* RIGHT COLUMN: Eligibility & Partners (Replaces Form) */}
+          {/* RIGHT COLUMN: Who Can Apply & Partners */}
           <div className="space-y-10">
-            {/* 3. Who Can Apply? (New Section) */}
-            <div className="bg-[#001E2B] text-white rounded-2xl shadow-xl p-8 relative overflow-hidden">
-              {/* Background Gradient */}
+            <div className="bg-[#001E2B] text-white rounded-2xl shadow-xl p-10 relative overflow-hidden border border-slate-800">
               <div className="absolute top-0 right-0 w-64 h-64 bg-teal-500 rounded-full blur-[80px] opacity-20 pointer-events-none" />
-
-              <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
+              <h3 className="text-xl font-bold mb-8 flex items-center gap-3">
                 <Users className="w-6 h-6 text-teal-400" />
                 Who Can Apply?
               </h3>
-
-              <div className="space-y-4 relative z-10">
+              <div className="space-y-6 relative z-10">
                 <EligibilityItem
                   title="Ocean-Tech Innovators"
                   desc="Startups building hardware/software for marine use."
@@ -92,25 +109,18 @@ export default function Incubator() {
                   desc="Locals solving problems in fisheries or tourism."
                 />
               </div>
-
-              <div className="mt-8 pt-8 border-t border-slate-700">
-                
-                <p className="text-center text-slate-400 text-sm mt-3">
-                  Applications open soon.
+              <div className="mt-10 pt-8 border-t border-slate-700">
+                <p className="text-center text-slate-400 text-sm">
+                  Applications for the next cohort open soon.
                 </p>
               </div>
             </div>
 
-            {/* 4. Strategic Partners (New Section) */}
-            <div className="bg-slate-50 p-8 rounded-2xl border border-slate-200">
-              <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+            <div className="bg-white p-8 rounded-2xl border border-slate-200">
+              <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-3">
                 <Globe className="w-6 h-6 text-blue-600" />
                 Strategic Ecosystem
               </h3>
-              <p className="text-slate-600 text-sm mb-6">
-                Our incubator is connected with national and global entities to
-                ensure your success.
-              </p>
               <div className="grid grid-cols-2 gap-4">
                 <PartnerBadge
                   label="Govt Ministries"
@@ -137,22 +147,19 @@ export default function Incubator() {
   );
 }
 
-// ----------------------------------------------------------------------
-// HELPER COMPONENTS
-// ----------------------------------------------------------------------
-
+// Helpers
 function BenefitItem({ text }: { text: string }) {
   return (
-    <li className="flex items-start gap-3 text-slate-700">
+    <li className="flex items-start gap-4 text-slate-700">
       <ShieldCheck className="w-5 h-5 text-teal-500 shrink-0 mt-0.5" />
-      <span className="text-sm md:text-base">{text}</span>
+      <span className="text-sm md:text-base leading-snug">{text}</span>
     </li>
   );
 }
 
 function ThemeTag({ text }: { text: string }) {
   return (
-    <div className="flex items-center gap-2 bg-white border border-slate-200 text-slate-700 px-4 py-3 rounded-xl text-sm font-medium shadow-sm hover:border-teal-500 hover:text-teal-600 transition-colors cursor-default">
+    <div className="flex items-center gap-3 bg-white border border-slate-200 text-slate-700 px-4 py-3 rounded-xl text-sm font-medium shadow-sm hover:border-teal-500 hover:text-teal-600 transition-colors cursor-default">
       <Sprout className="w-4 h-4 text-teal-500" />
       {text}
     </div>
@@ -162,10 +169,10 @@ function ThemeTag({ text }: { text: string }) {
 function EligibilityItem({ title, desc }: { title: string; desc: string }) {
   return (
     <div className="flex gap-4">
-      <div className="w-2 h-2 mt-2 rounded-full bg-teal-400 shrink-0" />
+      <div className="w-1.5 h-1.5 mt-2 rounded-full bg-teal-400 shrink-0 shadow-[0_0_10px_rgba(45,212,191,0.5)]" />
       <div>
-        <h4 className="font-bold text-slate-100 text-sm">{title}</h4>
-        <p className="text-slate-400 text-xs">{desc}</p>
+        <h4 className="font-bold text-slate-100 text-sm mb-1">{title}</h4>
+        <p className="text-slate-400 text-xs leading-relaxed">{desc}</p>
       </div>
     </div>
   );
@@ -179,7 +186,7 @@ function PartnerBadge({
   icon: React.ReactNode;
 }) {
   return (
-    <div className="flex items-center gap-2 bg-white p-3 rounded-lg border border-slate-100 shadow-sm text-slate-700 text-sm font-medium">
+    <div className="flex items-center gap-3 bg-slate-50 p-4 rounded-xl border border-slate-100 shadow-sm text-slate-700 text-sm font-medium hover:bg-white hover:shadow-md transition-all">
       <div className="text-blue-500">{icon}</div>
       {label}
     </div>

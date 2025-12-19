@@ -42,13 +42,19 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen overflow-x-hidden font-sans selection:bg-teal-200 selection:text-teal-900">
-      {/* 1. HERO SECTION */}
-      <div className="relative h-[90vh] flex items-center justify-center overflow-hidden bg-[#001E2B]">
-        <div ref={parallaxRef} className="absolute inset-0 opacity-40">
-          <div className="absolute top-0 left-0 w-full h-full bg-[url('https://images.unsplash.com/photo-1468581264429-2548ef9eb732?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center" />
+    <div className="min-h-screen overflow-x-hidden font-sans selection:bg-[#FF7F50] selection:text-white">
+      {/* 1. HERO SECTION (Ocean Data Style) */}
+      <div className="relative bg-[#0a192f] text-white py-24 lg:py-32 overflow-hidden">
+        {/* Animated Ocean Gradient Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0a192f] via-[#102a43] to-[#004e92] opacity-90"></div>
+        <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+
+        {/* Animated Blobs */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+          <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-blue-600/30 rounded-full mix-blend-overlay filter blur-3xl animate-blob" />
+          <div className="absolute top-[20%] right-[-10%] w-96 h-96 bg-teal-500/20 rounded-full mix-blend-overlay filter blur-3xl animate-blob animation-delay-2000" />
+          <div className="absolute -bottom-32 left-[20%] w-96 h-96 bg-cyan-500/20 rounded-full mix-blend-overlay filter blur-3xl animate-blob animation-delay-4000" />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-[#001E2B] via-[#001E2B]/80 to-transparent" />
 
         <div className="container relative z-10 px-4 text-center">
           <Badge
@@ -58,16 +64,17 @@ export default function Home() {
             Pakistan's First Digital Maritime Hub
           </Badge>
 
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight tracking-tight">
+          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight tracking-tight font-heading">
             Digital Catalyst for <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-[#FF7F50]">
               Pakistan's Blue Economy
             </span>
           </h1>
 
           <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed">
             Connecting industry, government, and researchers to transform the
-            maritime sector.
+            maritime sector through technology, collaboration, and inclusive
+            innovation.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -78,10 +85,10 @@ export default function Home() {
             >
               Join the Ecosystem
             </Button>
-            {/* FIXED BUTTON: Added bg-transparent and border-white */}
+
             <Button
               size="lg"
-              className="bg-transparent border-2 border-white/30 text-white hover:bg-white/10 px-8 py-6 text-lg rounded-full backdrop-blur-sm transition-all"
+              className="bg-transparent border-2 border-white/40 text-white hover:bg-white/10 px-8 py-6 text-lg rounded-full backdrop-blur-sm transition-all"
               onClick={() =>
                 document
                   .getElementById("offerings")
@@ -105,7 +112,7 @@ export default function Home() {
               </h2>
               <p className="text-slate-300 leading-relaxed">
                 To build a smart, inclusive, and technology-enabled maritime
-                ecosystem.
+                ecosystem that accelerates sustainable economic growth.
               </p>
             </div>
             <div className="md:col-span-2 grid sm:grid-cols-2 gap-4">
@@ -236,7 +243,7 @@ export default function Home() {
       </div>
 
       {/* 4. WHO WE SERVE */}
-      <div className="py-24 bg-[#F8FAFC]">
+      <div className="py-24 bg-white/50">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -317,7 +324,6 @@ export default function Home() {
                 <Button className="bg-white text-[#FF7F50] hover:bg-slate-100 border-0 rounded-full px-8">
                   Read Stories
                 </Button>
-                {/* FIXED BUTTON: Added bg-transparent and border-white */}
                 <Button className="bg-transparent border-2 border-white/40 text-white hover:bg-white/10 rounded-full px-8 transition-colors">
                   Submit Yours
                 </Button>
@@ -372,7 +378,7 @@ export default function Home() {
       </div>
 
       {/* 7. CTA */}
-      <div className="py-24 bg-white">
+      <div className="py-24 bg-white/50">
         <div className="container mx-auto px-4">
           <div className="bg-gradient-to-r from-blue-600 to-teal-500 rounded-3xl p-12 md:p-20 text-center text-white shadow-2xl relative overflow-hidden">
             <h2 className="text-3xl md:text-5xl font-bold mb-8 relative z-10">
@@ -390,7 +396,6 @@ export default function Home() {
               >
                 Sign Up Now
               </Button>
-              {/* FIXED BUTTON: Added bg-transparent and border-white */}
               <Button
                 size="lg"
                 className="bg-transparent border-2 border-white/40 text-white hover:bg-white/10 px-10 py-6 text-lg rounded-full transition-colors"
