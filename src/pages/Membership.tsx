@@ -28,9 +28,10 @@ export default function Membership() {
         </div>
 
         <div className="container relative z-10 px-4 text-center max-w-4xl">
-          <div className="inline-flex items-center justify-center p-3 bg-white/10 rounded-full mb-6 backdrop-blur-sm">
-            <Users className="w-6 h-6 text-teal-400" />
+          <div className="inline-flex items-center justify-center p-3 bg-[#FF7F50]/15 rounded-full mb-6 backdrop-blur-sm">
+            <Users className="w-6 h-6 text-[#FF7F50]" />
           </div>
+
           <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
             Digital Maritime Membership
           </h1>
@@ -97,7 +98,7 @@ export default function Membership() {
             </ul>
             <Button
               className="w-full bg-blue-600 hover:bg-blue-700"
-              onClick={() => navigate("/membership/individual")}
+              onClick={() => navigate("/membership/individualform")}
             >
               Apply as Individual
             </Button>
@@ -129,7 +130,7 @@ export default function Membership() {
             </ul>
             <Button
               className="w-full bg-[#FF7F50] hover:bg-[#E06040] text-white border-0 relative z-10"
-              onClick={() => navigate("/membership/coral")}
+              onClick={() => navigate("/membership/coralform")}
             >
               Register Organization
             </Button>

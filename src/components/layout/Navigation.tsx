@@ -38,7 +38,7 @@ export function Navigation({ isLoggedIn = false, onLogin, onLogout }: Navigation
   return (
     <nav className="bg-navy sticky top-0 z-50 border-b border-navy-light shadow-lg">
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center h-16">
+        <div className="relative flex items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 group">
             <div className="bg-primary p-2 rounded-lg transition-transform group-hover:scale-105">
@@ -46,7 +46,7 @@ export function Navigation({ isLoggedIn = false, onLogin, onLogout }: Navigation
             </div>
             <div>
               <h1 className="text-xl font-bold text-primary-foreground tracking-tight">
-                MSH <span className="text-primary">Pakistan</span>
+                Blue <span className="text-primary">Net+</span>
               </h1>
               <p className="text-[10px] text-muted-foreground uppercase tracking-wider">
                 Maritime Stakeholders Hub
@@ -55,7 +55,8 @@ export function Navigation({ isLoggedIn = false, onLogin, onLogout }: Navigation
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-1">
+          <div className="hidden lg:flex items-center space-x-1 absolute left-1/2 -translate-x-1/2 whitespace-nowrap">
+
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = location.pathname === item.path;
@@ -79,7 +80,26 @@ export function Navigation({ isLoggedIn = false, onLogin, onLogout }: Navigation
           </div>
 
           {/* Auth Section */}
-          <div className="hidden lg:flex items-center ml-4 border-l border-navy-light pl-4">
+
+
+          {isLoggedIn && (
+            <div className="flex items-center space-x-3">
+              <div className="text-right">
+                <p className="text-sm font-medium text-primary-foreground">Member</p>
+                <p className="text-xs text-muted-foreground">Active</p>
+              </div>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={onLogout}
+                className="text-destructive hover:bg-destructive/10"
+              >
+                <LogOut className="w-5 h-5" />
+              </Button>
+            </div>
+          )}
+
+          {/* <div className="hidden lg:flex items-center ml-4 border-l border-navy-light pl-4">
             {isLoggedIn ? (
               <div className="flex items-center space-x-3">
                 <div className="text-right">
@@ -101,7 +121,7 @@ export function Navigation({ isLoggedIn = false, onLogin, onLogout }: Navigation
                 <span>Join Hub</span>
               </Button>
             )}
-          </div>
+          </div> */}
 
           {/* Mobile Menu Button */}
           <button
@@ -140,7 +160,7 @@ export function Navigation({ isLoggedIn = false, onLogin, onLogout }: Navigation
             })}
             
             <div className="pt-4 border-t border-navy mt-2">
-              {isLoggedIn ? (
+              {/* {isLoggedIn ? (
                 <button
                   onClick={() => {
                     onLogout?.();
@@ -161,8 +181,22 @@ export function Navigation({ isLoggedIn = false, onLogin, onLogout }: Navigation
                 >
                   <User className="w-5 h-5" />
                   <span>Login / Register</span>
+                </button> */}
+              {/* )} */}
+
+              {isLoggedIn && (
+                <button
+                  onClick={() => {
+                    onLogout?.();
+                    setMobileMenuOpen(false);
+                  }}
+                  className="flex w-full items-center space-x-3 px-3 py-3 text-destructive hover:bg-navy rounded-lg"
+                >
+                  <LogOut className="w-5 h-5" />
+                  <span>Sign Out</span>
                 </button>
               )}
+
             </div>
           </div>
         </div>
