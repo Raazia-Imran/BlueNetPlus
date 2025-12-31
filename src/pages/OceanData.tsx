@@ -254,7 +254,7 @@ export default function OceanData() {
           <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 h-[800px] md:h-[600px]">
             {/* Featured Item (Large) */}
             <GalleryItem
-              image="https://images.unsplash.com/photo-1582967788606-a171f1080cae?auto=format&fit=crop&q=80"
+              image="/images/img-09.png"
               title="Deep Sea Mapping"
               desc="Conducting bathymetric surveys off the coast of Gwadar using advanced sonar."
               className="md:col-span-2 md:row-span-2"
@@ -263,7 +263,7 @@ export default function OceanData() {
 
             {/* Item 2 */}
             <GalleryItem
-              image="https://images.unsplash.com/photo-1581093458791-9f302e6d38e9?auto=format&fit=crop&q=80"
+              image="/images/img-04.png"
               title="Lab Analysis"
               desc="Testing water samples for microplastics and pollutants."
               className="md:col-span-1 md:row-span-1"
@@ -271,7 +271,7 @@ export default function OceanData() {
 
             {/* Item 3 */}
             <GalleryItem
-              image="https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?auto=format&fit=crop&q=80"
+              image="/images/img-03.png"
               title="Marine Life Study"
               desc="Biodiversity cataloging in the Indus Delta mangroves."
               className="md:col-span-1 md:row-span-1"
@@ -279,11 +279,12 @@ export default function OceanData() {
 
             {/* Item 4 (Wide) */}
             <GalleryItem
-              image="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&q=80"
+              image="/images/img-06.png"
               title="Coastal Reef Monitoring"
               desc="Divers assessing coral health and fish population density."
               className="md:col-span-2 md:row-span-1"
             />
+            
           </div>
         </div>
       </div>
