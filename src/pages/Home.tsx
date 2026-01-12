@@ -192,6 +192,14 @@ export default function Home() {
                     color: "bg-[#FF7F50]",
                     link: "/incubator",
                   },
+                  {
+                    title: "Ocean Kafe",
+                    desc: "A creative storytelling space amplifying unheard voices from Pakistan’s coastline.",
+                    icon: Mic,
+                    color: "bg-teal-600",
+                    link: "/activities",
+                  },
+
                 ].map((item, index) => (
                   <CarouselItem
                     key={index}
